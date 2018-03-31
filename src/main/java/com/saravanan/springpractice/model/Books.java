@@ -1,8 +1,5 @@
 package com.saravanan.springpractice.model;
 
-import com.saravanan.springpractice.model.Author;
-import org.springframework.jmx.export.annotation.ManagedMetric;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,13 +12,15 @@ public class Books {
     private Long id;
     private String title;
     private String isbn;
-    private String publisher;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name="author_id"))
+    @OneToOne
+    private Publisher publisher;
+
+    @ManyToMany
+    @JoinTable(name = "author_books", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name="author_id"))
     private Set<Author> authorSet=new HashSet<>();
 
-    public Books(String title, String isbn, String publisher, Set<Author> authorSet) {
+    public Books(String title, String isbn, Publisher publisher, Set<Author> authorSet) {
         this.title = title;
         this.isbn = isbn;
         this.publisher = publisher;
@@ -31,7 +30,7 @@ public class Books {
     public Books() {
     }
 
-    public Books(String title, String isbn, String publisher) {
+    public Books(String title, String isbn, Publisher publisher) {
 
         this.title = title;
         this.isbn = isbn;
@@ -70,11 +69,11 @@ public class Books {
         this.isbn = isbn;
     }
 
-    public String getPublisher() {
+    public Publisher getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(String publisher) {
+    public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
 }
