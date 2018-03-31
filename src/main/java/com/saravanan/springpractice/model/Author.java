@@ -1,7 +1,5 @@
 package com.saravanan.springpractice.model;
 
-import com.saravanan.springpractice.Books;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +13,7 @@ public class Author {
     private String firstName;
     private String lastName;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Books> books = new HashSet<>();
 
     public Author() {

@@ -1,4 +1,4 @@
-package com.saravanan.springpractice;
+package com.saravanan.springpractice.model;
 
 import com.saravanan.springpractice.model.Author;
 import org.springframework.jmx.export.annotation.ManagedMetric;
@@ -17,7 +17,7 @@ public class Books {
     private String isbn;
     private String publisher;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name="author_id"))
     private Set<Author> authorSet=new HashSet<>();
 
